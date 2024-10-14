@@ -1,0 +1,77 @@
+[gd_scene load_steps=9 format=3 uid="uid://b6s8ckrg4p2rm"]
+
+[ext_resource type="PackedScene" uid="uid://b4bx3hor1ovgt" path="res://scenes/game/player.tscn" id="1_1vhiy"]
+[ext_resource type="Texture2D" uid="uid://dh21lfk585kvq" path="res://assets/sprites/brick_floor.jpg" id="1_jibbt"]
+[ext_resource type="Texture2D" uid="uid://b2tha14kwxlcl" path="res://assets/sprites/brick_wall.jpg" id="1_mokc7"]
+[ext_resource type="PackedScene" uid="uid://ix27aej2448l" path="res://scenes/game/wall.tscn" id="1_tu2gw"]
+[ext_resource type="PackedScene" uid="uid://k0rjstml3wjm" path="res://scenes/game/enemy.tscn" id="5_886k4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mixl4"]
+size = Vector2(1152, 649)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_pjipp"]
+normal = Vector2(8.74228e-08, 1)
+distance = 2.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_hocf8"]
+distance = 1.00001
+
+[node name="World" type="Node2D"]
+
+[node name="Background" type="Sprite2D" parent="."]
+modulate = Color(0.140447, 0.140447, 0.140447, 1)
+position = Vector2(615.5, 363)
+scale = Vector2(2.1123, 1.47461)
+texture = ExtResource("1_mokc7")
+
+[node name="Objects" type="StaticBody2D" parent="."]
+
+[node name="Ground" type="CollisionShape2D" parent="Objects"]
+position = Vector2(577, 325.5)
+shape = SubResource("RectangleShape2D_mixl4")
+disabled = true
+
+[node name="BrickFloor" type="Sprite2D" parent="Objects/Ground"]
+modulate = Color(0.29219, 0.29219, 0.29219, 1)
+position = Vector2(-580, -324.5)
+scale = Vector2(1.12342, 0.639456)
+texture = ExtResource("1_jibbt")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 1029.98, 1029.98)
+
+[node name="Wall_1" parent="Objects" instance=ExtResource("1_tu2gw")]
+
+[node name="Wall_2" parent="Objects" instance=ExtResource("1_tu2gw")]
+position = Vector2(747, 401)
+
+[node name="Boundary_N" type="CollisionShape2D" parent="Objects"]
+shape = SubResource("WorldBoundaryShape2D_pjipp")
+
+[node name="Boundary_S" type="CollisionShape2D" parent="Objects"]
+position = Vector2(0, 654)
+rotation = 3.14159
+shape = SubResource("WorldBoundaryShape2D_pjipp")
+
+[node name="Boundary_W" type="CollisionShape2D" parent="Objects"]
+rotation = 1.5708
+shape = SubResource("WorldBoundaryShape2D_hocf8")
+
+[node name="Boundary_W2" type="CollisionShape2D" parent="Objects"]
+position = Vector2(1153, 2)
+rotation = -1.5708
+shape = SubResource("WorldBoundaryShape2D_hocf8")
+
+[node name="Shadow" type="CanvasModulate" parent="."]
+color = Color(0.0807833, 0.0807833, 0.0807833, 1)
+
+[node name="Moon" type="DirectionalLight2D" parent="."]
+color = Color(0, 0, 0.662745, 1)
+energy = 0.14
+
+[node name="Player" parent="." instance=ExtResource("1_1vhiy")]
+position = Vector2(141, 149)
+
+[node name="Enemy" parent="." instance=ExtResource("5_886k4")]
+position = Vector2(947, 236)
+scale = Vector2(0.5, 0.461)

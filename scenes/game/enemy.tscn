@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://k0rjstml3wjm"]
+
+[ext_resource type="Texture2D" uid="uid://orqfoocf04vt" path="res://assets/sprites/enemy3.png" id="1_fboou"]
+[ext_resource type="Script" path="res://scenes/game/enemy.gd" id="1_mthug"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2pncj"]
+height = 50.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wvpfa"]
+height = 52.0
+
+[node name="Enemy" type="RigidBody2D" groups=["Enemy"]]
+gravity_scale = 0.0
+script = ExtResource("1_mthug")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2)
+shape = SubResource("CapsuleShape2D_2pncj")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.298, 0.314)
+texture = ExtResource("1_fboou")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="Area2D" type="Area2D" parent="." groups=["Enemy"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CapsuleShape2D_wvpfa")

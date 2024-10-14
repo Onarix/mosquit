@@ -1,0 +1,61 @@
+[gd_scene load_steps=8 format=3 uid="uid://b4bx3hor1ovgt"]
+
+[ext_resource type="Script" path="res://scenes/game/player.gd" id="1_87gi1"]
+[ext_resource type="Texture2D" uid="uid://diqcy8jinawn4" path="res://assets/sprites/player.png" id="2_vn7tn"]
+[ext_resource type="Texture2D" uid="uid://pglsljuso63p" path="res://assets/sprites/lightcone.jpg" id="3_6q5vg"]
+[ext_resource type="Script" path="res://scenes/game/attack.gd" id="4_1yx03"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mompy"]
+size = Vector2(11, 16)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_g2ylx"]
+a = Vector2(301.902, 11.76)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_yufd6"]
+
+[node name="Player" type="CharacterBody2D"]
+position = Vector2(405, 100)
+scale = Vector2(3, 3)
+motion_mode = 1
+script = ExtResource("1_87gi1")
+speed = 400
+attSpeed = 0.4
+knockback = Vector2(200, 200)
+
+[node name="Body" type="CollisionShape2D" parent="."]
+position = Vector2(-5.5, 2)
+shape = SubResource("RectangleShape2D_mompy")
+
+[node name="Sprite2D" type="Sprite2D" parent="Body"]
+position = Vector2(-0.5, 0)
+scale = Vector2(0.0435441, 0.0421622)
+texture = ExtResource("2_vn7tn")
+
+[node name="Flashlight" type="PointLight2D" parent="."]
+position = Vector2(-2, 1)
+scale = Vector2(0.547463, 1.06672)
+energy = 1.75
+shadow_enabled = true
+texture = ExtResource("3_6q5vg")
+offset = Vector2(140, 0)
+
+[node name="Attack" type="Area2D" parent="Flashlight" groups=["Player"]]
+position = Vector2(-0.608889, -1.87491)
+scale = Vector2(1e-05, 1e-05)
+script = ExtResource("4_1yx03")
+
+[node name="Range" type="CollisionShape2D" parent="Flashlight/Attack"]
+scale = Vector2(0.0927452, 0.170068)
+shape = SubResource("SegmentShape2D_g2ylx")
+debug_color = Color(0, 0.643137, 0, 0.419608)
+
+[node name="Weapon" type="Sprite2D" parent="Flashlight/Attack/Range"]
+modulate = Color(1, 0, 1, 1)
+position = Vector2(161.733, 11.76)
+scale = Vector2(321.459, 2.735)
+texture = SubResource("CanvasTexture_yufd6")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(3.5, 3.5)
+
+[connection signal="area_entered" from="Flashlight/Attack" to="." method="_on_attack_area_entered"]
