@@ -1,16 +1,24 @@
-[gd_scene load_steps=3 format=3 uid="uid://ix27aej2448l"]
+[gd_scene load_steps=4 format=3 uid="uid://ix27aej2448l"]
 
 [ext_resource type="Texture2D" uid="uid://b2tha14kwxlcl" path="res://assets/sprites/brick_wall.jpg" id="1_7srue"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_scggn"]
 size = Vector2(83, 502)
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_vfi6n"]
+polygon = PackedVector2Array(-41.625, -251.25, -39.625, 252.75, 41.375, 252.75, 41.375, -250.25)
+
 [node name="Wall_1" type="StaticBody2D" groups=["Walls"]]
 position = Vector2(306.625, 249.25)
+collision_mask = 46
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.875, 1.75)
 shape = SubResource("RectangleShape2D_scggn")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="CollisionShape2D"]
+position = Vector2(-0.875, -1.75)
+occluder = SubResource("OccluderPolygon2D_vfi6n")
 
 [node name="Sprite2D" type="Sprite2D" parent="CollisionShape2D"]
 modulate = Color(0.141176, 0.141176, 0.141176, 1)

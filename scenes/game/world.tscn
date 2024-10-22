@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://b6s8ckrg4p2rm"]
+[gd_scene load_steps=10 format=3 uid="uid://b6s8ckrg4p2rm"]
 
 [ext_resource type="PackedScene" uid="uid://b4bx3hor1ovgt" path="res://scenes/game/player.tscn" id="1_1vhiy"]
+[ext_resource type="Script" path="res://scenes/game/world.gd" id="1_fxs8o"]
 [ext_resource type="Texture2D" uid="uid://dh21lfk585kvq" path="res://assets/sprites/brick_floor.jpg" id="1_jibbt"]
 [ext_resource type="Texture2D" uid="uid://b2tha14kwxlcl" path="res://assets/sprites/brick_wall.jpg" id="1_mokc7"]
 [ext_resource type="PackedScene" uid="uid://ix27aej2448l" path="res://scenes/game/wall.tscn" id="1_tu2gw"]
@@ -17,6 +18,7 @@ distance = 2.0
 distance = 1.00001
 
 [node name="World" type="Node2D"]
+script = ExtResource("1_fxs8o")
 
 [node name="Background" type="Sprite2D" parent="."]
 modulate = Color(0.140447, 0.140447, 0.140447, 1)
@@ -63,15 +65,15 @@ rotation = -1.5708
 shape = SubResource("WorldBoundaryShape2D_hocf8")
 
 [node name="Shadow" type="CanvasModulate" parent="."]
-color = Color(0.0807833, 0.0807833, 0.0807833, 1)
+color = Color(0.332881, 0.332881, 0.332881, 1)
 
 [node name="Moon" type="DirectionalLight2D" parent="."]
 color = Color(0, 0, 0.662745, 1)
 energy = 0.14
 
 [node name="Player" parent="." instance=ExtResource("1_1vhiy")]
-position = Vector2(141, 149)
+position = Vector2(439, 226)
+knockback = 100.0
 
 [node name="Enemy" parent="." instance=ExtResource("5_886k4")]
-position = Vector2(947, 236)
-scale = Vector2(0.5, 0.461)
+position = Vector2(571, 251)

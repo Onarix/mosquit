@@ -16,11 +16,13 @@ a = Vector2(301.902, 11.76)
 [node name="Player" type="CharacterBody2D"]
 position = Vector2(405, 100)
 scale = Vector2(3, 3)
+collision_layer = 2
 motion_mode = 1
 script = ExtResource("1_87gi1")
 speed = 400
 attSpeed = 0.4
-knockback = Vector2(200, 200)
+cooldown = 0.5
+knockback = 50.0
 
 [node name="Body" type="CollisionShape2D" parent="."]
 position = Vector2(-5.5, 2)
@@ -42,11 +44,14 @@ offset = Vector2(140, 0)
 [node name="Attack" type="Area2D" parent="Flashlight" groups=["Player"]]
 position = Vector2(-0.608889, -1.87491)
 scale = Vector2(1e-05, 1e-05)
+collision_layer = 2
+collision_mask = 12
 script = ExtResource("4_1yx03")
 
 [node name="Range" type="CollisionShape2D" parent="Flashlight/Attack"]
-scale = Vector2(0.0927452, 0.170068)
+scale = Vector2(0.1, 0.183)
 shape = SubResource("SegmentShape2D_g2ylx")
+disabled = true
 debug_color = Color(0, 0.643137, 0, 0.419608)
 
 [node name="Weapon" type="Sprite2D" parent="Flashlight/Attack/Range"]
@@ -54,6 +59,15 @@ modulate = Color(1, 0, 1, 1)
 position = Vector2(161.733, 11.76)
 scale = Vector2(321.459, 2.735)
 texture = SubResource("CanvasTexture_yufd6")
+
+[node name="Lightfield" type="Area2D" parent="Flashlight" groups=["Light"]]
+collision_layer = 16
+collision_mask = 4
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Flashlight/Lightfield"]
+position = Vector2(6.69756, 1.24994)
+scale = Vector2(3, 2.405)
+polygon = PackedVector2Array(-3.04436, -0.624971, 38.9676, -16.2414, 38.9676, 18.3203)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(3.5, 3.5)
