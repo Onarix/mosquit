@@ -33,7 +33,6 @@ func _ready() -> void:
 	start_pos = self.position
 	$Turn.start()
 	$MoveRandom.start()
-	$AttractionTime.start()
 	turn()
 
 
@@ -47,10 +46,7 @@ func _process(_delta: float) -> void:
 
 	if(isAttracted):
 		self.velocity = Vector2(player_pos - self.global_position).normalized() * speed * 2
-		print(player_pos)
-	
-	#print(player_pos)
-	#print(isAttracted)
+
 	move_and_slide()
 	
 
@@ -64,16 +60,20 @@ func _on_timer_timeout() -> void:
 # Light attraction
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	if(area.is_in_group("Light")):
-		isAttracted = not isAttracted
+		if(not isAttracted):
+			isAttracted = not isAttracted
 		var target_pos = area.get_parent().get_parent().position
 		$Path/Checker.shape.set_length(self.position.distance_to(target_pos))
 		$Path/Checker.look_at(target_pos)
 		$Path/Checker.rotation -= deg_to_rad(90)
+		
+	print("Enter: ",isAttracted)
 
 
 func _on_path_body_entered(body: Node2D) -> void:
 	if(body.is_in_group("Walls")):
-		isAttracted = not isAttracted
+		if(isAttracted):
+			isAttracted = not isAttracted
 
 
 func _on_move_random_timeout() -> void:
@@ -83,14 +83,15 @@ func _on_move_random_timeout() -> void:
 
 
 func _on_attraction_time_timeout() -> void:
-	if(not isAttracted):
-		$Path/Checker.shape.set_length(0.01)
-		$Path/Checker.rotation = deg_to_rad(0)
-	$AttractionTime.start()
-
+	isAttracted = not isAttracted
+	$AttractionTime.stop()
+	print("Timeout: ",isAttracted)
 
 func _on_area_2d_area_exited(area: Area2D) -> void:
-	isAttracted = not isAttracted
+	$AttractionTime.start()
+	$Path/Checker.shape.set_length(0.01)
+	$Path/Checker.rotation = deg_to_rad(0)
+	print("Exit: ",isAttracted)
 	
 func _on_player_position_changed(player_new_position: Vector2) -> void:
 	player_pos = player_new_position
