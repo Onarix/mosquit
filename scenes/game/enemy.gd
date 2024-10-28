@@ -12,6 +12,7 @@ var isHit := false
 var isAttracted := false
 var player_pos := Vector2(0,0)
 
+@onready var nav: NavigationAgent2D = $NavigationAgent2D
 
 func turn() -> void:
 	self.rotation = angles[randi() % 2]
@@ -45,7 +46,8 @@ func _process(_delta: float) -> void:
 		self.rotation = lerp(self.rotation, deg_to_rad(45.0), weight)
 
 	if(isAttracted):
-		self.velocity = Vector2(player_pos - self.global_position).normalized() * speed * 2
+		nav.target_position = player_pos
+		self.velocity = Vector2(nav.get_next_path_position() - self.global_position).normalized() * speed * 2
 
 	move_and_slide()
 	
@@ -59,6 +61,7 @@ func _on_timer_timeout() -> void:
 
 # Light attraction
 func _on_area_2d_area_entered(area: Area2D) -> void:
+	$AttractionTime.stop()
 	if(area.is_in_group("Light")):
 		if(not isAttracted):
 			isAttracted = not isAttracted
@@ -83,7 +86,8 @@ func _on_move_random_timeout() -> void:
 
 
 func _on_attraction_time_timeout() -> void:
-	isAttracted = not isAttracted
+	if(isAttracted):
+		isAttracted = not isAttracted
 	$AttractionTime.stop()
 	print("Timeout: ",isAttracted)
 

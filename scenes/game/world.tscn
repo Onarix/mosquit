@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b6s8ckrg4p2rm"]
+[gd_scene load_steps=11 format=3 uid="uid://b6s8ckrg4p2rm"]
 
 [ext_resource type="PackedScene" uid="uid://b4bx3hor1ovgt" path="res://scenes/game/player.tscn" id="1_1vhiy"]
 [ext_resource type="Script" path="res://scenes/game/world.gd" id="1_fxs8o"]
@@ -16,6 +16,11 @@ distance = 2.0
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_hocf8"]
 distance = 1.00001
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_uh01v"]
+vertices = PackedVector2Array(1141, 644.023, 795.117, 644.969, 801.117, 142.117, 1141, 9.90625, 359, 3.07813, 695.023, 140.883, 359, 514.758, 694.008, 649.938, 9.96094, 646.047, 255.023, 517.242, 8.03125, 6, 254.023, 6)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 3, 2, 5), PackedInt32Array(6, 4, 5, 7), PackedInt32Array(6, 7, 8, 9), PackedInt32Array(9, 8, 10, 11)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(0, 656, -2, -4, 264, -4, 265, 507, 349, 505, 349, -7, 1151, 0, 1151, 654, 785, 655, 791, 152, 705, 151, 704, 660)])
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_fxs8o")
@@ -72,8 +77,11 @@ color = Color(0, 0, 0.662745, 1)
 energy = 0.14
 
 [node name="Player" parent="." instance=ExtResource("1_1vhiy")]
-position = Vector2(439, 226)
+position = Vector2(89, 71)
 knockback = 100.0
 
 [node name="Enemy" parent="." instance=ExtResource("5_886k4")]
-position = Vector2(571, 251)
+position = Vector2(947, 196)
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_uh01v")

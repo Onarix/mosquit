@@ -54,6 +54,8 @@ collision_layer = 32
 shape = SubResource("SeparationRayShape2D_e6c1g")
 debug_color = Color(0.077526, 0.416963, 0.0945606, 0.42)
 
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
 [connection signal="timeout" from="Turn" to="." method="_on_timer_timeout"]

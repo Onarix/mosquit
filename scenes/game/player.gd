@@ -19,18 +19,20 @@ signal position_changed(position)
 
 func _input(event):
 	mouse_pos = get_global_mouse_position()
-	$Flashlight.look_at(mouse_pos if ((left == false and mouse_pos.x >= self.position.x) or (left == true and mouse_pos.x <= self.position.x)) else Vector2(self.position.x, mouse_pos.y))
+	if((left == false and mouse_pos.x >= self.position.x) or (left == true and mouse_pos.x <= self.position.x)):
+		$Flashlight.look_at(mouse_pos)
+	else:
+		left = not left
+		scale = Vector2(-1 * scale.x, scale.y)
+		get_viewport().warp_mouse(Vector2(self.get_global_transform_with_canvas().origin.x - turn_dir[left] * abs(self.get_global_transform_with_canvas().origin.x - mouse_pos.x), mouse_pos.y)) 
+	
 	var input_direction = Input.get_vector("left", "right", "up", "down")
 	
 	if(event.is_action_pressed("Flashlight toggle")):
 		$Flashlight.enabled = not $Flashlight.enabled
+		$Flashlight/Lightfield/CollisionPolygon2D.disabled = not $Flashlight/Lightfield/CollisionPolygon2D.disabled
 		
 
-	if(event.is_action_pressed("turn")):
-		left = not left
-		scale = Vector2(-1 * scale.x, scale.y)
-		get_viewport().warp_mouse(Vector2(self.get_global_transform_with_canvas().origin.x - turn_dir[left] * abs(self.get_global_transform_with_canvas().origin.x - mouse_pos.x), mouse_pos.y)) 
-				
 	velocity = input_direction * speed
 	
 	
@@ -52,4 +54,3 @@ func _on_attack_area_entered(area: Area2D) -> void:
 		wait_for_enemy(enemy)
 		enemy.velocity = Vector2(turn_dir[not left] * cos(angle), sin(angle)) * knockback
 		enemy.isHit = not enemy.isHit
-		#area.get_parent().apply_central_impulse(Vector2(turn_dir[not left] * cos(angle), sin(angle)) * knockback)
