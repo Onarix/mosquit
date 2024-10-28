@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://k0rjstml3wjm"]
+[gd_scene load_steps=5 format=3 uid="uid://k0rjstml3wjm"]
 
 [ext_resource type="Texture2D" uid="uid://orqfoocf04vt" path="res://assets/sprites/enemy3.png" id="1_fboou"]
 [ext_resource type="Script" path="res://scenes/game/enemy.gd" id="1_mthug"]
@@ -8,9 +8,6 @@ height = 50.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wvpfa"]
 height = 64.5161
-
-[sub_resource type="SeparationRayShape2D" id="SeparationRayShape2D_e6c1g"]
-length = 1.0
 
 [node name="Enemy" type="CharacterBody2D" groups=["Enemy"]]
 collision_layer = 4
@@ -41,24 +38,4 @@ shape = SubResource("CapsuleShape2D_wvpfa")
 [node name="Turn" type="Timer" parent="."]
 wait_time = 5.0
 
-[node name="MoveRandom" type="Timer" parent="."]
-wait_time = 3.0
-
-[node name="AttractionTime" type="Timer" parent="."]
-wait_time = 2.0
-
-[node name="Path" type="Area2D" parent="."]
-collision_layer = 32
-
-[node name="Checker" type="CollisionShape2D" parent="Path"]
-shape = SubResource("SeparationRayShape2D_e6c1g")
-debug_color = Color(0.077526, 0.416963, 0.0945606, 0.42)
-
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
-
-[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
-[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
 [connection signal="timeout" from="Turn" to="." method="_on_timer_timeout"]
-[connection signal="timeout" from="MoveRandom" to="." method="_on_move_random_timeout"]
-[connection signal="timeout" from="AttractionTime" to="." method="_on_attraction_time_timeout"]
-[connection signal="body_entered" from="Path" to="." method="_on_path_body_entered"]
