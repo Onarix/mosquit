@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ctyrnimdtnglt"
-path="res://.godot/imported/player_sprite.webp-e607a2d739656d24f51390a49806dbe0.ctex"
+uid="uid://pglsljuso63p"
+path="res://.godot/imported/lightcone.jpg-d7ec90c404ce047d9f7bfad12c515fd9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/player_sprite.webp"
-dest_files=["res://.godot/imported/player_sprite.webp-e607a2d739656d24f51390a49806dbe0.ctex"]
+source_file="res://assets/sprites/lights/lightcone.jpg"
+dest_files=["res://.godot/imported/lightcone.jpg-d7ec90c404ce047d9f7bfad12c515fd9.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dh21lfk585kvq"
-path="res://.godot/imported/brick_floor.jpg-914060e26ca8e0a99cedc4fe01abdf14.ctex"
+uid="uid://cojslax4gbk30"
+path="res://.godot/imported/tilemap_1.png-e01cbdd99f40475b28295c182ba11f3c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/brick_floor.jpg"
-dest_files=["res://.godot/imported/brick_floor.jpg-914060e26ca8e0a99cedc4fe01abdf14.ctex"]
+source_file="res://assets/sprites/tilemaps/tilemap_1.png"
+dest_files=["res://.godot/imported/tilemap_1.png-e01cbdd99f40475b28295c182ba11f3c.ctex"]
 
 [params]
 
