@@ -15,6 +15,8 @@ var turn_dir := {true: 1, false: -1}
 
 var rotation_direction := 0
 
+@onready var _animated_sprite = $Body/AnimatedSprite2D
+
 signal position_changed(position)
 
 func _input(event):
@@ -27,6 +29,11 @@ func _input(event):
 		get_viewport().warp_mouse(Vector2(self.get_global_transform_with_canvas().origin.x - turn_dir[left] * abs(self.get_global_transform_with_canvas().origin.x - mouse_pos.x), mouse_pos.y)) 
 	
 	var input_direction = Input.get_vector("left", "right", "up", "down")
+	
+	if(Input.is_action_pressed("down") or Input.is_action_pressed("left") or Input.is_action_pressed("up") or Input.is_action_pressed("right")):
+		_animated_sprite.play("walk")
+	else:
+		_animated_sprite.stop()
 	
 	if(event.is_action_pressed("Flashlight toggle")):
 		$Flashlight.enabled = not $Flashlight.enabled
