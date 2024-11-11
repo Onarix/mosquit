@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=4 uid="uid://b6s8ckrg4p2rm"]
+[gd_scene load_steps=12 format=4 uid="uid://b6s8ckrg4p2rm"]
 
 [ext_resource type="PackedScene" uid="uid://b4bx3hor1ovgt" path="res://scenes/game/player.tscn" id="1_1vhiy"]
 [ext_resource type="Script" path="res://scenes/game/world.gd" id="1_fxs8o"]
 [ext_resource type="Texture2D" uid="uid://b2tha14kwxlcl" path="res://assets/sprites/brick_wall.jpg" id="1_mokc7"]
 [ext_resource type="TileSet" uid="uid://crco5t2ehjr8h" path="res://assets/sprites/tilemaps/tileset_1.tres" id="3_fbsby"]
 [ext_resource type="PackedScene" uid="uid://k0rjstml3wjm" path="res://scenes/game/enemy.tscn" id="5_886k4"]
+[ext_resource type="Texture2D" uid="uid://e5rcna3ntsc2" path="res://icon.svg" id="6_uvmle"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_pjipp"]
 normal = Vector2(8.74228e-08, 1)
@@ -18,8 +19,11 @@ vertices = PackedVector2Array(9.96094, 645.867, 8.03125, 6.35156, 242.07, 14.648
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 0, 3, 5), PackedInt32Array(6, 4, 5, 7), PackedInt32Array(6, 7, 8, 9), PackedInt32Array(9, 8, 10, 11)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(0, 656, -2, -4, 252, 5, 256, 514, 385, 514, 383, 6, 1151, 0, 1151, 654, 834, 651, 833, 133, 704, 133, 707, 647)])
 
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_xbyda"]
-polygon = PackedVector2Array(-65, -54, -64, 706, 1214, 707, 1214, -59, 1150, -5, 1154, 647, 836, 645, 831, 134, 704, 136, 709, 649, 381, 645, 254, 647, 254, 516, 383, 513, 383, 14, 1223, -3, 1215, -61, 383, -57, 254, -59, -64, -54, -64, -5, 253.887, 4.73895, 253, 515, 251, 649, 0, 653, -1, -2)
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_lbmeq"]
+polygon = PackedVector2Array(-65, 0, 256, 3, 259, 516, 386, 517, 386, 2, 1215, 3, 1217, -60, -63, -61)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_hqthw"]
+polygon = PackedVector2Array(-65, -7, -66, 707, 1216, 713, 1215, 5, 1153, 5, 1153, 645, 833, 645, 833, 133, 705, 133, 706, 646, 1, 647, 2, -7)
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_fxs8o")
@@ -55,22 +59,33 @@ rotation = -1.5708
 shape = SubResource("WorldBoundaryShape2D_hocf8")
 
 [node name="Shadow" type="CanvasModulate" parent="."]
-color = Color(0.332881, 0.332881, 0.332881, 1)
+light_mask = 3
+color = Color(0.462291, 0.462291, 0.462291, 1)
 
 [node name="Moon" type="DirectionalLight2D" parent="."]
+visibility_layer = 3
 color = Color(0, 0, 0.662745, 1)
 energy = 0.14
 
 [node name="Player" parent="." instance=ExtResource("1_1vhiy")]
-position = Vector2(89, 71)
+position = Vector2(104, 64)
 scale = Vector2(1, 1)
 knockback = 100.0
 
 [node name="Enemy" parent="." instance=ExtResource("5_886k4")]
 position = Vector2(947, 196)
 
-[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+[node name="NavigationRegion" type="NavigationRegion2D" parent="."]
 navigation_polygon = SubResource("NavigationPolygon_uh01v")
 
-[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
-occluder = SubResource("OccluderPolygon2D_xbyda")
+[node name="LightOccluder" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_lbmeq")
+
+[node name="LightOccluder2" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_hqthw")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer"]
+position = Vector2(545, 295)
+texture = ExtResource("6_uvmle")
