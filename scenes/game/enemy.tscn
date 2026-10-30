@@ -33,7 +33,7 @@ scale = Vector2(0.31, 0.31)
 [node name="Area2D" type="Area2D" parent="." groups=["Enemy"]]
 scale = Vector2(0.31, 0.31)
 collision_layer = 4
-collision_mask = 18
+collision_mask = 50
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CapsuleShape2D_wvpfa")
@@ -44,7 +44,7 @@ wait_time = 5.0
 [node name="MoveRandom" type="Timer" parent="."]
 wait_time = 3.0
 
-[node name="AttractionTime" type="Timer" parent="."]
+[node name="AttractionTime" type="Timer" parent="." groups=["Temp"]]
 wait_time = 2.0
 
 [node name="Path" type="Area2D" parent="."]

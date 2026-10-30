@@ -1,0 +1,80 @@
+[gd_scene load_steps=7 format=3 uid="uid://cs7echjef2cx3"]
+
+[ext_resource type="Texture2D" uid="uid://uvn2gcq438lf" path="res://assets/backgrounds/bg_1.jpg" id="1_a7dou"]
+[ext_resource type="Script" path="res://scenes/menu/settings.gd" id="1_lfjqc"]
+[ext_resource type="Texture2D" uid="uid://dewenkutp85ua" path="res://assets/misc/brigthness_example.png" id="3_pmn1n"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_5fu8f"]
+font_size = 30
+
+[sub_resource type="LabelSettings" id="LabelSettings_84mkx"]
+font_size = 12
+
+[sub_resource type="LabelSettings" id="LabelSettings_q2fny"]
+font_size = 12
+
+[node name="Settings" type="Node2D"]
+script = ExtResource("1_lfjqc")
+
+[node name="Content" type="MarginContainer" parent="."]
+offset_left = 276.0
+offset_top = 166.0
+offset_right = 557.0
+offset_bottom = 216.0
+
+[node name="Background" type="Sprite2D" parent="Content"]
+position = Vector2(300, 159)
+scale = Vector2(1.4974, 1.26367)
+texture = ExtResource("1_a7dou")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Content"]
+layout_mode = 2
+
+[node name="SettingsLabel" type="VBoxContainer" parent="Content/VBoxContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Content/VBoxContainer/SettingsLabel"]
+layout_mode = 2
+text = "Settings"
+label_settings = SubResource("LabelSettings_5fu8f")
+
+[node name="Options" type="VBoxContainer" parent="Content/VBoxContainer"]
+layout_mode = 2
+
+[node name="Brightness" type="VBoxContainer" parent="Content/VBoxContainer/Options"]
+layout_mode = 2
+
+[node name="BrightnessControl" type="HBoxContainer" parent="Content/VBoxContainer/Options/Brightness"]
+layout_mode = 2
+
+[node name="BrightnessLabel" type="Label" parent="Content/VBoxContainer/Options/Brightness/BrightnessControl"]
+layout_mode = 2
+text = "Brigthness"
+label_settings = SubResource("LabelSettings_84mkx")
+
+[node name="BrightnessSlider" type="HSlider" parent="Content/VBoxContainer/Options/Brightness/BrightnessControl"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.05
+value = 0.45
+
+[node name="ExamplePic" type="TextureRect" parent="Content/VBoxContainer/Options/Brightness"]
+layout_mode = 2
+texture = ExtResource("3_pmn1n")
+expand_mode = 5
+
+[node name="Back" type="Label" parent="Content/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 1
+text = "Back"
+label_settings = SubResource("LabelSettings_q2fny")
+
+[node name="Shadow" type="CanvasModulate" parent="."]
+position = Vector2(276, 212)
+color = Color(0.462291, 0.462291, 0.462291, 1)
+
+[connection signal="value_changed" from="Content/VBoxContainer/Options/Brightness/BrightnessControl/BrightnessSlider" to="." method="_on_brightness_slider_value_changed"]
+[connection signal="gui_input" from="Content/VBoxContainer/Back" to="." method="_on_back_gui_input"]
+[connection signal="mouse_entered" from="Content/VBoxContainer/Back" to="." method="_on_back_mouse_entered"]
+[connection signal="mouse_exited" from="Content/VBoxContainer/Back" to="." method="_on_back_mouse_exited"]

@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://cfni1uu0gmx3n"]
+
+[node name="HUD" type="CanvasLayer"]
+
+[node name="Stats" type="VBoxContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Health" type="TextureProgressBar" parent="Stats"]
+layout_mode = 2
+
+[node name="Sanity" type="TextureProgressBar" parent="Stats"]
+layout_mode = 2
+
+[node name="FlashlightEnergy" type="TextureProgressBar" parent="Stats"]
+layout_mode = 2

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://b4bx3hor1ovgt"]
+[gd_scene load_steps=19 format=3 uid="uid://b4bx3hor1ovgt"]
 
 [ext_resource type="Script" path="res://scenes/game/player.gd" id="1_87gi1"]
 [ext_resource type="Texture2D" uid="uid://btbunfcb6rjyg" path="res://assets/sprites/player/player_1.png" id="2_wcm8w"]
@@ -61,19 +61,25 @@ a = Vector2(301.902, 11.76)
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_yufd6"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_5f5tk"]
+radius = 88.6441
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_toukg"]
+radius = 11.0
+height = 51.3333
+
 [node name="Player" type="CharacterBody2D"]
 position = Vector2(405, 100)
 scale = Vector2(3, 3)
 collision_layer = 2
 motion_mode = 1
 script = ExtResource("1_87gi1")
-speed = 400
 attSpeed = 0.4
 cooldown = 0.5
 knockback = 50.0
 
 [node name="Body" type="CollisionShape2D" parent="."]
-position = Vector2(-9.66667, 1.33333)
+position = Vector2(-9.66666, 1.33333)
 shape = SubResource("RectangleShape2D_mompy")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Body"]
@@ -127,4 +133,25 @@ texture = ExtResource("12_7bb5j")
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(3.5, 3.5)
 
+[node name="AttractionArea" type="Area2D" parent="." groups=["AttractionCircle"]]
+collision_layer = 32
+collision_mask = 4
+
+[node name="AttractionTerrain" type="CollisionShape2D" parent="AttractionArea"]
+position = Vector2(-10.3333, 0)
+shape = SubResource("CircleShape2D_5f5tk")
+
+[node name="DamageBody" type="Area2D" parent="." groups=["Player"]]
+collision_layer = 2
+collision_mask = 13
+
+[node name="DamageShape" type="CollisionShape2D" parent="DamageBody"]
+position = Vector2(-9.33333, 1.33333)
+shape = SubResource("CapsuleShape2D_toukg")
+debug_color = Color(0.801051, 0.26373, 0.812251, 0.42)
+
+[node name="StunTime" type="Timer" parent="."]
+
 [connection signal="area_entered" from="Flashlight/Attack" to="." method="_on_attack_area_entered"]
+[connection signal="area_entered" from="DamageBody" to="." method="_on_damage_body_area_entered"]
+[connection signal="timeout" from="StunTime" to="." method="_on_stun_time_timeout"]
