@@ -27,8 +27,14 @@ func _ready() -> void:
 	
 func _input(event) -> void:
 	if(event.is_action_pressed("Back")):
-		get_tree().change_scene_to_file("res://scenes/menu/menu.tscn")
+		var conns = $Enemy.get_incoming_connections()
+		for cur_conn in conns:
+			cur_conn.signal.disconnect(cur_conn.callable)
+		get_tree().call_deferred("change_scene_to_file", "res://scenes/menu/menu.tscn")
+		#get_tree().change_scene_to_file("res://scenes/menu/menu.tscn")
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	pass
+	if $HUD/HealthBar.value <= 0:
+		get_tree().paused = true
+		$GameOver.on_game_over()	

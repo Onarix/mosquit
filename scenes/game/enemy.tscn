@@ -44,7 +44,7 @@ wait_time = 5.0
 [node name="MoveRandom" type="Timer" parent="."]
 wait_time = 3.0
 
-[node name="AttractionTime" type="Timer" parent="."]
+[node name="AttractionTime" type="Timer" parent="." groups=["Temp"]]
 wait_time = 2.0
 
 [node name="Path" type="Area2D" parent="."]

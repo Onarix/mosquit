@@ -1,0 +1,46 @@
+[gd_scene load_steps=9 format=3 uid="uid://m2juaof2p24v"]
+
+[ext_resource type="Script" path="res://scenes/game/hud.gd" id="1_p1jff"]
+[ext_resource type="Texture2D" uid="uid://dk76i71k4c72k" path="res://assets/sprites/hud/health_bar.png" id="1_ycitj"]
+[ext_resource type="Script" path="res://scenes/game/health_bar.gd" id="2_kx6mo"]
+[ext_resource type="Script" path="res://scenes/game/light_energy_bar.gd" id="4_qcdmk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_77lhu"]
+atlas = ExtResource("1_ycitj")
+region = Rect2(128, 128, 128, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_shghl"]
+atlas = ExtResource("1_ycitj")
+region = Rect2(0, 0, 128, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hepkf"]
+atlas = ExtResource("1_ycitj")
+region = Rect2(128, 128, 128, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bs085"]
+atlas = ExtResource("1_ycitj")
+region = Rect2(0, 0, 128, 64)
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_p1jff")
+
+[node name="GameOverColor" type="CanvasModulate" parent="."]
+
+[node name="HealthBar" type="TextureProgressBar" parent="."]
+offset_right = 128.0
+offset_bottom = 64.0
+value = 100.0
+texture_under = SubResource("AtlasTexture_77lhu")
+texture_progress = SubResource("AtlasTexture_shghl")
+script = ExtResource("2_kx6mo")
+
+[node name="LightEnergyBar" type="TextureProgressBar" parent="."]
+modulate = Color(0.962201, 0.89773, 0, 1)
+self_modulate = Color(1, 1, 0.0156863, 1)
+offset_top = 23.0
+offset_right = 128.0
+offset_bottom = 87.0
+value = 100.0
+texture_under = SubResource("AtlasTexture_hepkf")
+texture_progress = SubResource("AtlasTexture_bs085")
+script = ExtResource("4_qcdmk")

@@ -4,6 +4,7 @@ extends CharacterBody2D
 @export var speed := 500.0
 @export var weight := 0.2
 @export var knockback := 12.0
+@export var base_damage := 10.0
 
 # MISC
 const angles := [deg_to_rad(-25.0), deg_to_rad(25.0)]

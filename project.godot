@@ -22,6 +22,7 @@ Player=""
 Enemy=""
 Light=""
 AttractionCircle=""
+Temp=""
 
 [input]
 

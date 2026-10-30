@@ -1,13 +1,17 @@
 extends CharacterBody2D
 
+class_name Player
+
 # STATS
 # base
 @export var level := 1
 @export var experience := 0
 @export var speed := 40
-@export var health := 100
+@export var max_health := 100
+@onready var health: int = max_health
 @export var sanity := 100
-@export var flashlightEnergy := 100
+@export var max_flashlightEnergy := 100.0
+@onready var flashlightEnergy: float = max_flashlightEnergy
 
 # attack
 @export var attSpeed := 2.0
@@ -27,6 +31,8 @@ var rotation_direction := 0
 @onready var _animated_sprite = $Body/AnimatedSprite2D
 
 signal position_changed(position)
+signal health_changed
+signal lightEnergy_changed
 
 func _input(event):
 	mouse_pos = get_global_mouse_position()
@@ -57,11 +63,15 @@ func _input(event):
 	velocity = input_direction * speed
 
 # PHYSICS
-func _physics_process(_delta):
+func _physics_process(delta):
 	emit_signal("position_changed", self.global_position)
 	
 	if(isHit):
 		self.velocity = lerp(self.velocity, Vector2(0.0, 0.0), weight)
+		
+	if($Flashlight.enabled):
+		flashlightEnergy -= delta * 2
+		lightEnergy_changed.emit()
 	
 	move_and_slide()
 
@@ -89,6 +99,8 @@ func _on_damage_body_area_entered(area: Area2D) -> void:
 		if(not isHit):
 			isHit = not isHit
 		print("HIT: ", isHit)
+		health -= enemy.base_damage
+		health_changed.emit()
 		$StunTime.start()
 
 func _on_stun_time_timeout() -> void:
